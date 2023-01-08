@@ -42,11 +42,12 @@ Straw::Straw(double hit_data, size_t _straw_layer, double _straw_r, bool _is_nan
 }
 
 void Straw::BuildGrid() {
-	for (double point = (center_coord_u - 1) * straw_r; point <= (center_coord_u + 1) * straw_r; point += straw_r) {
+	for (double point = (center_coord_u - straw_r); point <= (center_coord_u + straw_r); point += straw_r) {
 		u.push_back(point);
 	}
 }
 //for NaN layers takes adjacent straw from next/prev layer of the same type
+//so we can build "pseudo-coordinates" in this layer adjacent to other one
 void Straw::BuildGrid(const Straw& prev_or_next_straw) {
 	if (prev_or_next_straw.is_nan) {
 		return;
@@ -63,7 +64,8 @@ void Straw::BuildGrid(const Straw& prev_or_next_straw) {
 	}
 }
 
-std::vector<Straw> BuildCoordGrid(const std::vector<double>& hits, const double& straw_radius, const double& straw_length);
-double BuildGlobalCoords(const std::vector<Straw>& StrawGrid);
-std::vector<double> TrackPoint(const std::vector<double>& hits);
+std::vector<Straw> BuildCoordGrid(const std::vector<double>& hits, const double& straw_radius);
+std::vector<std::vector<double>> BuildGlobCoordsManifold(const std::vector<Straw>& StrawGrid);
 std::vector<std::vector<double>> GeneratePermutations(const std::vector<double>& dataset);
+void ShowCoordSetsFromStraws(const std::vector<double>& detHits, const std::vector<Straw>& StrawSet);
+void ShowPossibleHitsManifold(const std::vector<std::vector<double>>& MapCrd);
