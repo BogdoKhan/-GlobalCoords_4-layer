@@ -5,7 +5,6 @@
 #include <limits>
 #include <vector>
 
-
 struct Straw {
 	Straw();	//default constructor
 	Straw(double hit_data, size_t _straw_layer, double _straw_r, bool _is_nan); //common constructor

@@ -84,7 +84,14 @@ void ShowCoordSetsFromStraws(const std::vector<double>& detHits, const std::vect
 void ShowPossibleHitsManifold(const std::vector<std::vector<double>>& MapCrd) {
 	size_t cnt = 0;
 	for (auto& i : MapCrd) {
-		std::cout << "Layer: " << cnt << std::endl;
+		std::cout << "Coordinate layer: ";
+		if (cnt == 0) {
+			std::cout << "X";
+		}
+		else {
+			std::cout << "Y";
+		}
+		std::cout << std::endl;
 		std::cout << "{ ";
 		if (i.size() < 1) std::cout << "}\n";
 		for (auto iter = i.begin(); iter != i.end(); iter++) {
@@ -134,7 +141,7 @@ std::vector<std::vector<double>> GeneratePermutations(const std::vector<double>&
 }
 
 int main() {
-	std::vector<double> detHits = { NAN, 0.0, 2.0, 2.0 };
+	std::vector<double> detHits = { 1.0, 0.0, 2.0, 2.0 };
 	std::vector<Straw> StrawSet = BuildCoordGrid(detHits, 0.5);
 	std::vector<std::vector<double>> MapCrd = BuildGlobCoordsManifold(StrawSet);
 
